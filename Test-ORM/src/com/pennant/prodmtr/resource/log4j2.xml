@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+	<Properties>
+		<Property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1} - %m%n</Property>
+		<Property name="basePath">D:/logs/ProductivityMonitor</Property>
+		
+		<Property name="LoginLogsPath">${basePath}/Login</Property>
+		
+	</Properties>
+
+	<Appenders>
+		<Console name="console" target="SYSTEM_OUT" follow="true">
+			<PatternLayout pattern="${LOG_PATTERN}" />
+		</Console>
+
+		<RollingFile name="fileLogger" fileName="${basePath}/ProductivityMonitor.log"
+			filePattern="${basePath}/ProductivityMonitor-%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true" />
+				<SizeBasedTriggeringPolicy size="10MB" />
+			</Policies>
+			<!-- Max 10 files will be created every day -->
+			<DefaultRolloverStrategy max="10">
+				<Delete basePath="${basePath}" maxDepth="10">
+					<!-- Delete all files older than 30 days -->
+					<IfLastModified age="30d" />
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingFile>
+		
+		
+
+
+		<RollingFile name="LoginLogger" fileName="${basePath}/LOGINLOGGER/Login.log"
+	filePattern="${LoginLogsPath}/Login-%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true" />
+				<SizeBasedTriggeringPolicy size="10MB" />
+			</Policies>
+			<!-- Max 10 files will be created every day -->
+			<DefaultRolloverStrategy max="10">
+				<Delete basePath="${LoginLogsPath}" maxDepth="10">
+					<!-- Delete all files older than 30 days -->
+					<IfLastModified age="30d" />
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingFile>
+		<RollingFile name="AnalyticsLogger" fileName="${basePath}/AnalyticsLogger/Analytics.log"
+	filePattern="${AnalyticsLogsPath}/Analytics-%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true" />
+				<SizeBasedTriggeringPolicy size="10MB" />
+			</Policies>
+			<!-- Max 10 files will be created every day -->
+			<DefaultRolloverStrategy max="10">
+				<Delete basePath="${AnalyticsLogsPath}" maxDepth="10">
+					<!-- Delete all files older than 30 days -->
+					<IfLastModified age="30d" />
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingFile>
+		
+		<RollingFile name="MailLogger" fileName="${basePath}/MailLogger/Mail.log"
+	filePattern="${MailLogsPath}/Analytics-%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true" />
+				<SizeBasedTriggeringPolicy size="10MB" />
+			</Policies>
+			<!-- Max 10 files will be created every day -->
+			<DefaultRolloverStrategy max="10">
+				<Delete basePath="${MailLogsPath}" maxDepth="10">
+					<!-- Delete all files older than 30 days -->
+					<IfLastModified age="30d" />
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingFile>
+			<RollingFile name="FunctionalUnitLogger" fileName="${basePath}/FunctionalUnitLogger/FunctionalUnit.log"
+	filePattern="${FunctionalUnitLogsPath}/FunctionalUnit-%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true" />
+				<SizeBasedTriggeringPolicy size="10MB" />
+			</Policies>
+			<!-- Max 10 files will be created every day -->
+			<DefaultRolloverStrategy max="10">
+				<Delete basePath="${FunctionalUnitLogsPath}" maxDepth="10">
+					<!-- Delete all files older than 30 days -->
+					<IfLastModified age="30d" />
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingFile>
+
+
+	</Appenders>
+
+	<Loggers>
+		<Root level="info" additivity="false">
+			<AppenderRef ref="fileLogger" />
+			<AppenderRef ref="console" />
+		</Root>
+
+		<Logger name="com.pennant.prodmtr.controller.LoginController" level="info" additivity="false">
+			<AppenderRef ref="fileLogger" />
+			<AppenderRef ref="LoginLogger" />
+			<AppenderRef ref="console" />
+		</Logger>
+		<Logger name="com.pennant.prodmtr.service.Interface.UserService" level="info" additivity="false">
+			<AppenderRef ref="fileLogger" />
+			<AppenderRef ref="LoginLogger" />
+			<AppenderRef ref="console" />
+		</Logger>
+			<Logger name="com.pennant.prodmtr.controller.AnalyticsController" level="info" additivity="false">
+			<AppenderRef ref="fileLogger" />
+			<AppenderRef ref="AnalyticsLogger" />
+			<AppenderRef ref="console" />
+		</Logger>
+			<Logger name="com.pennant.prodmtr.controller.MailOtpController" level="info" additivity="false">
+			<AppenderRef ref="fileLogger" />
+			<AppenderRef ref="MailLogger" />
+			<AppenderRef ref="console" />
+		</Logger>
+			<Logger name="com.pennant.prodmtr.controller.FunctionalUnitController" level="info" additivity="false">
+			<AppenderRef ref="fileLogger" />
+			<AppenderRef ref="FunctionalUnitLogger" />
+			<AppenderRef ref="console" />
+		</Logger>
+		
+		
+
+	</Loggers>
+</Configuration>
